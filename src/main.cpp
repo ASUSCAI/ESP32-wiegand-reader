@@ -1,5 +1,6 @@
 #include <Wiegand.h>
 #include "ams_credentials.h"
+#include "esp_wpa2.h"
 #include <WiFi.h>
 #include <time.h>
 
@@ -8,11 +9,25 @@ int debug = 0;
 
 void setup() {
     Serial.begin(115200);
-    WiFi.begin(SSID, PASSWORD);
+
+    WiFi.mode(WIFI_STA);
+    WiFi.disconnect();
+
+    esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)username, strlen(username));
+    esp_wifi_sta_wpa2_ent_set_username((uint8_t *)username, strlen(username));
+    esp_wifi_sta_wpa2_ent_set_password((uint8_t *)password, strlen(password));
+    esp_wifi_sta_wpa2_ent_enable();    
+
+    WiFi.begin(ssid);
+
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
-        Serial.print(".");
     }
+
+    Serial.println("");
+    Serial.println("WiFi connected");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
     wg.begin(34, 35);
 }
 
