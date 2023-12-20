@@ -1,32 +1,38 @@
 #include <Wiegand.h>
+#include "ams_credentials.h"
+#include <WiFi.h>
 #include <time.h>
 
 WIEGAND wg;
+int debug = 0;
 
-void setup()
-{
+void setup() {
     Serial.begin(115200);
-
-    // default Wiegand Pin 2 and Pin 3 see image on README.md
-    // for non UNO board, use wg.begin(pinD0, pinD1) where pinD0 and pinD1
-    // are the pins connected to D0 and D1 of wiegand reader respectively.
+    WiFi.begin(SSID, PASSWORD);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
     wg.begin(34, 35);
 }
 
-void loop()
-{
-    if (wg.available())
-    {
-        // Serial.print("Wiegand HEX = ");
-        // Serial.println(wg.getCode(), HEX);
+void dispDebug(unsigned long code) {
+    Serial.print("Wiegand HEX = ");
+    Serial.println(wg.getCode(), HEX);
 
-        // Serial.print(", DECIMAL = ");
-        Serial.printf("%lu,%lu\n",(unsigned long)time(NULL),wg.getCode());
+    Serial.print(", DECIMAL = ");
+    Serial.println(wg.getCode());
 
-        // Serial.print(", BINARY = ");
-        // Serial.println(wg.getCode(), BIN);
+    Serial.print(", BINARY = ");
+    Serial.println(wg.getCode(), BIN);
 
-        // Serial.print(", Type W");
-        // Serial.println(wg.getWiegandType());
+    Serial.print(", Type W");
+    Serial.println(wg.getWiegandType());
+}
+
+void loop() {
+    if (wg.available()) {
+        if (debug) dispDebug(wg.getCode());
+        Serial.printf("%lu,%lu\n", (unsigned long)time(NULL), wg.getCode());
     }
 }
