@@ -1,6 +1,7 @@
 #include <Wiegand.h>
 #include "ams_credentials.h"
 #include "esp_wpa2.h"
+#include <ArduinoJson.h>
 #include <WiFi.h>
 #include <time.h>
 
@@ -10,15 +11,19 @@ int debug = 0;
 void setup() {
     Serial.begin(115200);
 
-    WiFi.mode(WIFI_STA);
-    WiFi.disconnect();
+    // UNCOMMENT BELOW FOR WPA2 WIFI CONNECTION
+    // WiFi.mode(WIFI_STA);
+    // WiFi.disconnect();
 
-    esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)username, strlen(username));
-    esp_wifi_sta_wpa2_ent_set_username((uint8_t *)username, strlen(username));
-    esp_wifi_sta_wpa2_ent_set_password((uint8_t *)password, strlen(password));
-    esp_wifi_sta_wpa2_ent_enable();    
+    // esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)username, strlen(username));
+    // esp_wifi_sta_wpa2_ent_set_username((uint8_t *)username, strlen(username));
+    // esp_wifi_sta_wpa2_ent_set_password((uint8_t *)password, strlen(password));
+    // esp_wifi_sta_wpa2_ent_enable();    
 
-    WiFi.begin(ssid);
+    // WiFi.begin(ssid);
+
+    // UNCOMMENT BELOW FOR STANDARD WIFI CONNECTION
+    WiFi.begin(ssid, password);
 
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
@@ -46,8 +51,8 @@ void dispDebug(unsigned long code) {
 }
 
 void loop() {
-    if (wg.available()) {
-        if (debug) dispDebug(wg.getCode());
-        Serial.printf("%lu,%lu\n", (unsigned long)time(NULL), wg.getCode());
-    }
+    // if (wg.available()) {
+    //     if (debug) dispDebug(wg.getCode());
+    //     Serial.printf("%lu,%lu\n", (unsigned long)time(NULL), wg.getCode());
+    // }
 }
