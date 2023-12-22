@@ -97,15 +97,15 @@ void dispDebug(unsigned long code) {
 }
 
 void loop() {
-    if (wg.available()) {
-        if (debug) dispDebug(wg.getCode());
-        Serial.printf("%lu,%lu\n", (unsigned long)time(NULL), wg.getCode());
-    }
-    // const char* room = "COOR170"; // Replace with actual room data
-    // const char* sid = "1221000031"; // Replace with actual student ID
-    // long timestamp = time(NULL); // Current UNIX timestamp
+    // if (wg.available()) {
+    //     if (debug) dispDebug(wg.getCode());
+    //     Serial.printf("%lu,%lu\n", (unsigned long)time(NULL), wg.getCode());
+    // }
+    const char* room = "COOR170"; // Replace with actual room data
+    const char* sid = "1221000031"; // Replace with actual student ID
+    long timestamp = time(NULL); // Current UNIX timestamp
 
-    // sendAttendanceRecord(room, timestamp, sid);
+    sendAttendanceRecord(room, timestamp, sid);
 
     delay(10000);
 }
