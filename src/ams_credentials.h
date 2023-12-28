@@ -1,7 +1,8 @@
 #ifndef _AMS_CREDENTIALS_H
 #define _AMS_CREDENTIALS_H
 
-#define SSID "<replace_with_ssid>"
-#define PASSWORD "<replace_with_password>"
+const char* ssid = "<SSID here>";
+const char* username = "<Username here>";
+const char* password = "<Password here>";
 
 #endif
