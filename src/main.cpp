@@ -26,23 +26,23 @@ void setup() {
     Serial.begin(115200);
 
     // UNCOMMENT BELOW FOR WPA2 WIFI CONNECTION
-    WiFi.mode(WIFI_STA);
-    WiFi.disconnect();
+    // WiFi.mode(WIFI_STA);
+    // WiFi.disconnect();
 
-    esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)username, strlen(username));
-    esp_wifi_sta_wpa2_ent_set_username((uint8_t *)username, strlen(username));
-    esp_wifi_sta_wpa2_ent_set_password((uint8_t *)password, strlen(password));
-    esp_wifi_sta_wpa2_ent_enable();    
+    // esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)username, strlen(username));
+    // esp_wifi_sta_wpa2_ent_set_username((uint8_t *)username, strlen(username));
+    // esp_wifi_sta_wpa2_ent_set_password((uint8_t *)password, strlen(password));
+    // esp_wifi_sta_wpa2_ent_enable();    
 
-    WiFi.begin(ssid);
+    // WiFi.begin(ssid);
 
     // UNCOMMENT BELOW FOR STANDARD WIFI CONNECTION
     // WiFi.begin(ssid, password);
 
 
-    connectToWiFi();
+    // connectToWiFi();
 
-    configTime(0, 0, "pool.ntp.org", "time.nist.gov"); 
+    // configTime(0, 0, "pool.ntp.org", "time.nist.gov"); 
     wg.begin(34, 35);
 }
 
@@ -85,6 +85,6 @@ void loop() {
         const char* room = "COOR170"; 
         long timestamp = time(NULL); 
 
-        sendAttendanceRecord(room, timestamp, sid);
+        // sendAttendanceRecord(room, timestamp, sid);
     }
 }
